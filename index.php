@@ -38,9 +38,6 @@
 	<!-- jQuery Sparkline -->
 	<script src="resources/assets/plugins/jquery.sparkline/jquery.sparkline.min.js"></script>
 
-	<!-- Datatables -->
-	<script src="resources/assets/plugins/datatables/datatables.min.js"></script>
-
 	<!-- Bootstrap Notify -->
 	<script src="resources/assets/plugins/bootstrap-notify/bootstrap-notify.min.js"></script>
 

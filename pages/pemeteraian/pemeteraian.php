@@ -147,30 +147,75 @@
 				success: function(response) {
 					var datanya = JSON.parse(response);
 					var jml = datanya[0]['jum'];
+					var kosong = 0;
 
+					//validasi jika ada kg kosong
+					$('.kg').each(function(){
+						if ($(this).text().trim()=='') {
+							kosong = 1;
+						}
+					});
+
+					//jika id wo ditemukan
 					if (jml==1) {
-						Swal.fire({
-							title: 'Pemberitahuan',
-							text: "Apakah Ingin Memposting?",
-							icon: 'warning',
-							showCancelButton: true,
-							confirmButtonColor: '#3085d6',
-							cancelButtonColor: '#d33',
-							confirmButtonText: 'Posting'
-						}).then((result) => {
-							if (result.isConfirmed) {
-								var kg = [];
-								var seq = [];
-								$('.kg').each(function(){
-									kg.push($(this).text());
-								});
-								$('.seq').each(function(){
-									seq.push($(this).text());
-								});
+						//jika ada kg yang kosong
+						if (kosong==0) {
+							Swal.fire({
+								title: 'Pemberitahuan',
+								text: "Apakah Ingin Memposting?",
+								icon: 'warning',
+								showCancelButton: true,
+								confirmButtonColor: '#3085d6',
+								cancelButtonColor: '#d33',
+								confirmButtonText: 'Posting'
+							}).then((result) => {
+								if (result.isConfirmed) {
+									Swal.fire({
+										title: "Proses Posting...",
+										text: "Tunggu Sampai Selesai",
+										imageUrl: "resources/assets/images/ajaxloader.gif",
+										showConfirmButton: false,
+										allowOutsideClick: false
+									});
 
-								console.log(kg);
+									var kg = [];
+									var seq = [];
+
+									$('.kg').each(function(){
+										kg.push($(this).text());
+									});
+
+									$('.seq').each(function(){
+										seq.push($(this).text());
+									});
+
+									$.ajax({
+										url: "pages/pemeteraian/posting.php",
+										type: "POST",
+										data: {
+											idwo: id,
+											kg: kg,
+											seq: seq
+										},
+										cache: false,
+										success: function (res) {
+											Swal.fire({
+												title: "Selesai!",
+												showConfirmButton: false,
+												timer: 1000
+											});
+										location.reload();
+									}
+								});
 							}
 						})
+						} else {
+							Swal.fire({
+								icon: 'error',
+								title: 'Pemberitahuan',
+								text: 'KG Tidak Boleh Kosong'
+							})
+						}
 					} else {
 						var html = '';
 						$('#tblwo').html('');

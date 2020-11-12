@@ -9,6 +9,7 @@
 			<i class="icon-menu"></i>
 		</span>
 	</button>
+	<button class="topbar-toggler more"><i class="icon-options-vertical"></i></button>
 	<div class="nav-toggle">
 		<button class="btn btn-toggle toggle-sidebar">
 			<i class="icon-menu"></i>
@@ -18,5 +19,22 @@
 <!-- End Logo Header -->
 
 <!-- Navbar Header -->
-<nav class="navbar navbar-header navbar-expand-lg" data-background-color="blue2"></nav>
+<nav class="navbar navbar-header navbar-expand-lg" data-background-color="blue2">
+	<div class="container-fluid">
+		<ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
+			<li class="nav-item dropdown hidden-caret">
+				<a class="nav-link" href="#" role="button" id="refresh">
+					<i class="fas fa-sync-alt"></i><h4>Refresh</h4>
+				</a>
+			</li>
+		</ul>
+	</div>
+</nav>
 <!-- End Navbar -->	
+
+<script>
+	$('#refresh').click(function() {
+		window.location.reload();
+	});
+
+</script>

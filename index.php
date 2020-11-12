@@ -21,7 +21,6 @@
 	<!-- CSS Files -->
 	<link rel="stylesheet" href="resources/assets/plugins/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="resources/assets/plugins/jquery-ui/jquery-ui.min.css">
-	<link rel="stylesheet" href="resources/assets/plugins/bootstrap-select/css/bootstrap-select.min.css">
 	<link rel="stylesheet" href="resources/assets/css/atlantis.min.css">
 
 	<!--   Core JS Files   -->

@@ -24,7 +24,8 @@
 		<ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
 			<li class="nav-item dropdown hidden-caret">
 				<a class="nav-link" href="#" role="button" id="refresh">
-					<i class="fas fa-sync-alt"></i><h4>Refresh</h4>
+					<i class="fas fa-sync-alt"></i>
+					<h7>Refresh</h7>
 				</a>
 			</li>
 		</ul>

@@ -68,7 +68,7 @@
 				var datanya = JSON.parse(response);
 				for (var i = 0; i < datanya.length; i++) {
 					var seq = datanya[i]['seq'];
-					var roll = datanya[i]['roll'];
+					var roll = datanya[i]['qty'];
 					
 					for (var j = 0; j < roll; j++) {
 						html += '<tr><td contenteditable="true" class="kg"></td>';
@@ -104,7 +104,7 @@
 					var jml = datanya[0]['jum'];
 
 					if (jml==1) {
-						var html = '<h2>'+datanya[0]['kode']+'</h2>';
+						var html = '<h2>KP:'+datanya[0]['kode']+'</h2>';
 						create_tabel(id);
 					} else {
 						var html = '';
@@ -204,7 +204,7 @@
 												showConfirmButton: false,
 												timer: 1000
 											});
-										location.reload();
+										// location.reload();
 									}
 								});
 							}

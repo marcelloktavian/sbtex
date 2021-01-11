@@ -16,15 +16,17 @@ $hasil = mysqli_fetch_assoc($sql);
 if($hasil['kode'] !== null){
 	//ambil kode terakhir
 	$awal = $hasil['kode']+1;
-	if (strlen($awal)==1) {
-		$hasil = '000'.$awal;
-	} else if (strlen($awal)==2) {
-		$hasil = '00'.$awal;
-	} else if (strlen($awal)==3) {
-		$hasil = '0'.$awal;
-	} else {
-		$hasil = $awal;
-	}
+	$hasil = str_pad($awal,4,'0',STR_PAD_RIGHT);
+
+	// if (strlen($awal)==1) {
+	// 	$hasil = '000'.$awal;
+	// } else if (strlen($awal)==2) {
+	// 	$hasil = '00'.$awal;
+	// } else if (strlen($awal)==3) {
+	// 	$hasil = '0'.$awal;
+	// } else {
+	// 	$hasil = $awal;
+	// }
 	
 	$idkg = 'KG/'.$bulan.$tahun.'/'.$hasil;
 }else{
@@ -37,5 +39,8 @@ if($hasil['kode'] !== null){
 for ($i=0; $i < count($seq); $i++) { 
 	$conn->query("INSERT INTO tblwokg(id_kg, id_wo, kg, seq) VALUES ('".$idkg."', '".$wo."', '".$kg[$i]."', '".$seq[$i]."');");
 }
+
+$mst_kg = mysqli_query($conn,"UPDATE tblwodet set kg =(select sum(kg) from tblwokg where id_wo='$wo' group by id_wo) where id_wo='$wo'") or die (mysql_error());
+// var_dump($mst_kg);die;
 
 ?>

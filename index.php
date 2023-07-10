@@ -4,24 +4,28 @@
 	<title>SetiaBusana Application</title>
 	
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+	<!-- <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' /> -->
+	<!-- <meta name="viewport" content="width=device-width"> -->
+	<meta name="viewport" content='width=device-width, initial-scale=1.0,text/html,charset=utf-8' >
 
 	<!-- Fonts and icons -->
+	<link rel="stylesheet" href="resources/assets/css/fonts.css">
 	<script src="resources/assets/plugins/webfont/webfont.min.js"></script>
 	<script>
-		WebFont.load({
-			google: {"families":["Lato:300,400,700,900"]},
-			custom: {"families":["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['resources/assets/css/fonts.min.css']},
-			active: function() {
-				sessionStorage.fonts = true;
-			}
-		});
+		// WebFont.load({
+		// 	google: {"families":["Lato:300,400,700,900"]},
+		// 	custom: {"families":["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['resources/assets/css/fonts.min.css']},
+		// 	active: function() {
+		// 		sessionStorage.fonts = true;
+		// 	}
+		// });
 	</script>
 
 	<!-- CSS Files -->
 	<link rel="stylesheet" href="resources/assets/plugins/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="resources/assets/plugins/jquery-ui/jquery-ui.min.css">
 	<link rel="stylesheet" href="resources/assets/css/atlantis.min.css">
+	<link rel="stylesheet" href="resources/assets/plugins/sweetalert/sweetalert.css">
 
 	<!--   Core JS Files   -->
 	<script src="resources/assets/plugins/jQuery_v1.11.2/jquery.min.js"></script>
@@ -44,7 +48,8 @@
 	<script src="resources/assets/plugins/bootstrap-select/js/bootstrap-select.min.js"></script>
 
 	<!-- JS -->
-	<script src="resources/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
+	<script src="resources/assets/plugins/sweetalert/sweetalert.js"></script>
+	<script src="resources/assets/plugins/sweetalert/promise.min.js"></script>
 	<script src="resources/assets/js/atlantis.min.js"></script>
 	<script src="resources/assets/plugins/jquery-redirect/jquery.redirect.js"></script>
 
@@ -66,6 +71,13 @@
 			<div class="sidebar-wrapper scrollbar scrollbar-inner">
 				<div class="sidebar-content">
 					<ul class="nav nav-primary">
+					<!-- refresh -->
+					<li class="nav-item <?php if(!isset($_GET['page']))echo "active"; ?>">
+							<a class="nav-link" href="#" role="button" onclick="javascript:window.location.reload();">
+								<i class="fas fa-sync-alt"></i>
+								<h7>Refresh</h7>
+							</a>
+						</li>
 
 						<!-- Beranda -->
 						<li class="nav-item <?php if(!isset($_GET['page']))echo "active"; ?>">
@@ -94,7 +106,7 @@
 						<li class="nav-item <?php if(isset($_GET['page']) && $_GET['page']=='pemeteraian')echo "active"; ?>">
 							<a href="index.php?page=pemeteraian">
 								<i class="fas fa-file"></i>
-								<p>Pemeteraian</p>
+								<p>Pemartaian</p>
 							</a>
 						</li>
 
@@ -117,6 +129,9 @@
 					} else if($page == 'pemeteraian'){
 						//Menu Pemeteraian
 						include 'pages/pemeteraian/pemeteraian.php';
+					} else if($page == 'posting'){
+						//Menu Pemeteraian
+						include 'pages/pemeteraian/postinginput.php';
 					}
 				}else{
 					include 'home.php';

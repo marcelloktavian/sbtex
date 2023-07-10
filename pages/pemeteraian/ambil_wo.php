@@ -1,4 +1,5 @@
 <?php
+header('Access-Control-Allow-Origin: *');
 require "../../include/koneksi.php";
 
 $id = $_POST['wo'];

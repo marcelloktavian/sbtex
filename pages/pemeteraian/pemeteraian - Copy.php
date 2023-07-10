@@ -1,5 +1,6 @@
 <div class="page-inner">
-	<div class="page-header">
+	<div class="row">
+	<div align="left" class="col-sm"><div class="page-header">
 		<h4 class="page-title">Pemartaian</h4>
 		<ul class="breadcrumbs">
 			<li class="nav-home">
@@ -14,6 +15,8 @@
 				<a href="#">Pemartaian</a>
 			</li>
 		</ul>
+	</div></div>
+	<div align="right" class="col-sm"><button class="btn btn-info" data-toggle="modal" data-target="#modalKP"><i class="fa fa-plus"></i> KP Manual</button></div>
 	</div>
 	<div class="row">
 		<div class="col-md-12">
@@ -38,6 +41,41 @@
 			</div>
 		</div>
 	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalKP" tabindex="-1" role="dialog" aria-labelledby="modalKPLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalKPLabel">Tambah KP Manual</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      	<!-- 1 -->
+      	<div class="form-group row">
+      		<label for="nokp" class="col-sm-2 col-form-label">No KP:</label>
+      		<div class="col-sm-10">
+      			<input class="form-control" type="number" name="nokp" id="nokp">
+      		</div>
+      	</div>
+      	<!-- 2 -->
+      	<div class="form-group row">
+      		<label for="jmroll" class="col-sm-2 col-form-label">Jumlah Roll:</label>
+      		<div class="col-sm-10">
+      			<input class="form-control" type="number" name="jmroll" id="jmroll">
+      		</div>
+      	</div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+        <button type="button" class="btn btn-info" onclick="addKP()">Tambah</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -93,7 +131,7 @@ $(document).ready(function(){
 
 					// console.log(conn);
 					// html += '<tr><td>'+no+'</td>';
-					html += '<tr><td><a class="btn btn-default" href="index.php?page=posting&idwo='+idwo+'&kp='+kode+'&id='+idjw+';'+idcust+';'+idso+';'+idjp+';'+idgrey+'&other='+warna+';'+cust+';'+kwarna+';'+tanggal+';'+grey+roll+'">Partai</a></td>';
+					html += '<tr><td><a class="btn btn-default" href="index.php?page=posting&idwo='+idwo+'&kp='+kode+'&id='+idjw+';'+idcust+';'+idso+';'+idjp+';'+idgrey+'&other='+warna+';'+cust+';'+kwarna+';'+tanggal+';'+grey+roll+';auto'+'">Partai</a></td>';
 					html += '<td>'+connPO+conn+cust+'</td>';
 					html += '<td><strong>'+kode+'</strong></td>'
 					html += '<td>'+tanggal+'</td>';
@@ -285,5 +323,72 @@ $(document).ready(function(){
 				}
 			});
 		}
-	}	
+	}
+
+	function addKP(){
+		var nokp= $("#nokp").val();
+		var jmlroll=$("#jmroll").val();
+
+		let pesan ="";
+		if(nokp == ""){
+			pesan="Nomer KP Wajib Di isi!";
+		}
+
+		if(jmlroll == ""){
+			pesan="Jumlah Roll Wajib Di isi!";
+		}
+
+		if(pesan === ""){
+			// PROSES
+			// ajax for get data wo/kp
+			$.ajax({
+				type: "POST",
+				url: "pages/pemeteraian/searchwo.php",
+				data: {
+					'kodewo':nokp,
+				},
+				success: function (response) {
+					var data = JSON.parse(response);
+					var no = 1;
+					if(data.length > 0){
+					for (var i = 0; i < data.length; i++) {
+						var kode = data[i]['no_kp'];
+						var idwo = data[i]['id_wo'];
+						var cust = data[i]['customer'];
+						var kwarna = data[i]['kodewarna'];
+						var grey = data[i]['grey'];
+						var warna = data[i]['warna'];
+						var roll = data[i]['qty'];
+						var status = data[i]['status'];
+						var tanggal = data[i]['tgl_trans'];
+						var idjw = data[i]['id_jw'];
+						var idcust = data[i]['id_cust'];
+						var idso = data[i]['id_so'];
+						var idjp = data[i]['id_jpo'];
+						var idgrey = data[i]['id_grey'];
+						var state_po = data[i]['state_po'];
+						var setting = data[i]['setting'];
+					}
+					// direct to another page
+			window.location='index.php?page=posting&idwo='+idwo+'&kp='+kode+'&id='+idjw+';'+idcust+';'+idso+';'+idjp+';'+idgrey+'&other='+warna+';'+cust+';'+kwarna+';'+tanggal+';'+grey+';'+jmlroll+';manual'+'';
+				}else{
+					window.swal({
+						icon: 'error',
+						title: 'Pemberitahuan',
+						text: "KP Tidak Di temukan!"
+					});
+				}
+			}
+			});
+		}else{
+			window.swal({
+				icon: 'error',
+				title: 'Pemberitahuan',
+				text: pesan
+			});
+		}
+
+		$("#nokp").val('');
+		$("#jmroll").val('');
+	}
 </script>

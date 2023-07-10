@@ -13,6 +13,10 @@
 	<div class="nav-toggle">
 		<button class="btn btn-toggle toggle-sidebar">
 			<i class="icon-menu"></i>
+			<a class="nav-link" href="#" role="button" id="refresh">
+					<i class="fas fa-sync-alt"></i>
+					<h7>Refresh</h7>
+				</a>
 		</button>
 	</div>
 </div>

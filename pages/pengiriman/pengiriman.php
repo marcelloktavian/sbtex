@@ -108,7 +108,7 @@
 	}
 
 	$(".clearPostlist").on('click',function(){
-		Swal.fire({
+		window.swal({
 			title: "Proses Clear...",
 			text: "Tunggu Sampai Selesai",
 			imageUrl: "resources/assets/images/ajaxloader.gif",
@@ -125,7 +125,7 @@
 			cache: false,
 			success: function (res) {
 				$("#loader").hide();
-				Swal.fire({
+				window.swal({
 					title: "Selesai!",
 					showConfirmButton: false,
 					timer: 1000
@@ -136,7 +136,7 @@
 	});
 
 	$("#butpost").on('click', function () {
-		Swal.fire({
+		window.swal({
 			title: "Proses Posting...",
 			text: "Tunggu Sampai Selesai",
 			imageUrl: "resources/assets/images/ajaxloader.gif",
@@ -162,7 +162,7 @@
 				sum_info();
 				sum_sisa();
 				$("#loader").hide();
-				Swal.fire({
+				window.swal({
 					title: "Selesai!",
 					showConfirmButton: false,
 					timer: 1000
@@ -232,7 +232,7 @@
 	}
 
 	function save(barcode) {
-		if (barcode == null || barcode == '') {
+		if (barcode == null || barcode == '' || barcode == 0) {
 			untukalert('Barcode Tidak Boleh Kosong!');
 		} else {
 			$('#alertnull').html('');
@@ -314,15 +314,16 @@
 			url: "pages/pengiriman/getArray.php",
 			dataType:"json",
 			success: function (response){	
+				console.log(response);
 				$(".valTotal").html("Data Yang Sudah Di Posting Saat ini<strong>("+response[0].total+")</strong>");
 
 				if(response[0].total == '0'){
-					for (var i = 0; i < response.length; i++) {
+					for (var i = 1; i < response.length; i++) {
 						$(".tmptotalpost").val();
 						tmpClear.push(response[i].groups);
 					}
 				}else{
-					for (var i = 0; i < response.length; i++) {
+					for (var i = 1; i < response.length; i++) {
 						$(".tmptotalpost").append(response[i].count+'[KP'+response[i].kp+']'+'\n');
 						tmpClear.push(response[i].groups);
 					}

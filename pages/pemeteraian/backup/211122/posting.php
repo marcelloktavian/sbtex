@@ -19,7 +19,7 @@ $id_grey=$other[4];
 $bulan = date('m');
 $tahun = date('y');
 
-$sql = mysqli_query($conn, "SELECT MAX(SUBSTR(id_kg,9,4)) AS kode FROM tblwokg WHERE SUBSTR(id_kg,4,2)=MONTH(NOW()) AND SUBSTR(id_kg,6,2)=SUBSTR(YEAR(NOW()),3,2) LIMIT 1") or die (mysqli_error());
+$sql = mysqli_query($conn, "SELECT MAX(SUBSTR(id_kg,9,4)) AS kode FROM tblwokg WHERE SUBSTR(id_kg,4,2)=MONTH(NOW()) AND SUBSTR(id_kg,6,2)=SUBSTR(YEAR(NOW()),3,2) LIMIT 1") or die (mysql_error());
 $hasil = mysqli_fetch_assoc($sql);
 
 // var_dump($hasil['kode']);
@@ -42,10 +42,10 @@ for ($i=0; $i < count($seq); $i++) {
 // menggunakan array keys 
 for ($j=0; $j < count($u_seq=array_keys(array_flip($seq))); $j++) {
 	// var_dump('array ke-'.$j.' isi= '.$u_seq[$j]);
-	$mst_kg = mysqli_query($conn,"UPDATE tblwodet set kg =(select sum(kg) from tblwokg where id_wo='$wo' and seq='$u_seq[$j]' group by id_wo) where id_wo='$wo' and seq='$u_seq[$j]'") or die (mysqli_error());
+	$mst_kg = mysqli_query($conn,"UPDATE tblwodet set kg =(select sum(kg) from tblwokg where id_wo='$wo' and seq='$u_seq[$j]' group by id_wo) where id_wo='$wo' and seq='$u_seq[$j]'") or die (mysql_error());
 }
 
-// $mst_kg = mysqli_query($conn,"UPDATE tblwodet set kg =(select sum(kg) from tblwokg where id_wo='$wo' group by id_wo) where id_wo='$wo'") or die (mysqli_error());
+// $mst_kg = mysqli_query($conn,"UPDATE tblwodet set kg =(select sum(kg) from tblwokg where id_wo='$wo' group by id_wo) where id_wo='$wo'") or die (mysql_error());
 // var_dump($mst_kg);die;
 
 mysqli_query($conn," UPDATE tblwo SET totalkg=(SELECT sum(kg) FROM tblwokg WHERE id_wo='$wo' GROUP BY id_wo) WHERE id_wo='$wo' ");

@@ -3,7 +3,7 @@
 $ip = "localhost";
 $user = "root";
 $pass = "";
-$db = "asiantex2020";
+$db = "asiantex2022";
 
 $conn = mysqli_connect($ip, $user, $pass, $db);
 
